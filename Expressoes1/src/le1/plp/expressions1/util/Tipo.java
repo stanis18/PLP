@@ -70,4 +70,6 @@ public interface Tipo {
 	 */
 	public abstract Tipo intersecao(Tipo outroTipo);
 
+	public abstract boolean eReal();
+
 }

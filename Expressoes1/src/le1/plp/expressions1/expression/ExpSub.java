@@ -29,9 +29,9 @@ public class ExpSub extends ExpBinaria {
 	 *            o ambiente de execu��o.
 	 */
 	public Valor avaliar(AmbienteExecucao amb) {
-		return new ValorInteiro(
-				((ValorInteiro)getEsq().avaliar(amb)).valor() -
-				((ValorInteiro)getDir().avaliar(amb)).valor()
+		return new ValorReal(
+				((ValorReal)getEsq().avaliar(amb)).valor().floatValue() -
+				((ValorReal)getDir().avaliar(amb)).valor().floatValue()
 		);
 	}
 
@@ -45,7 +45,7 @@ public class ExpSub extends ExpBinaria {
 	 *         <code>false</code> caso contrario.
 	 */
 	protected boolean checaTipoElementoTerminal(AmbienteCompilacao amb) {
-		return (getEsq().getTipo(amb).eInteiro() && getDir().getTipo(amb).eInteiro());
+		return (getEsq().getTipo(amb).eReal() && getDir().getTipo(amb).eReal());
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class ExpSub extends ExpBinaria {
 	 * @return os tipos possiveis desta expressao.
 	 */
 	public Tipo getTipo(AmbienteCompilacao amb) {
-		return TipoPrimitivo.INTEIRO;
+		return TipoPrimitivo.REAL;
 	}
 
 }
