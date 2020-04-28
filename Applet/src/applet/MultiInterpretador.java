@@ -150,12 +150,15 @@ public class MultiInterpretador {
 		}
 		prog = Func1Parser.Input();
 
-		messageBoard.setText("sintaxe verificada com sucesso!\n");
-		if (prog.checaTipo()) {
-			messageBoard.append("resultado = " + prog.executar().toString());
+		messageBoard.setText("Sintaxe verificada com sucesso!\n");
+		if(!prog.checaTipo()) {
+			messageBoard.append("Erro de tipos!");
+		} else if (!prog.checaTipoParametro()) {
+			messageBoard.append("Erro na checagem de pré-condições!");
 		} else {
-			messageBoard.append("erro de tipos!");
+			messageBoard.append("resultado = " + prog.executar().toString());
 		}
+		
 	}
 
 	private void interpretarFunc2(InputStream fis) throws Exception {

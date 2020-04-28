@@ -3,6 +3,7 @@ package lf1.plp.functional1.declaration;
 import java.util.Map;
 
 import lf1.plp.expressions1.util.Tipo;
+import lf1.plp.expressions2.expression.Expressao;
 import lf1.plp.expressions2.expression.Id;
 import lf1.plp.expressions2.expression.Valor;
 import lf1.plp.expressions2.memory.AmbienteCompilacao;
@@ -52,6 +53,12 @@ public class DecComposta implements DeclaracaoFuncional {
 	@Override
 	public DeclaracaoFuncional clone() {
 		return new DecComposta(d1.clone(),d2.clone());
+	}
+
+	@Override
+	public boolean checaTipoParametro(Expressao expressao) throws VariavelNaoDeclaradaException {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

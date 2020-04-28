@@ -66,4 +66,10 @@ public class ExpConcat extends ExpBinaria{
 	public ExpBinaria clone() {
 		return new ExpConcat(esq.clone(), dir.clone());
 	}
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

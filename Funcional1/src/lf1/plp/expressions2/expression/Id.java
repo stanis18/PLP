@@ -107,4 +107,10 @@ public class Id implements Expressao {
 	public Id clone() {
 		return this;
 	}
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

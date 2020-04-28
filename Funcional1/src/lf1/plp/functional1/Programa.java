@@ -1,5 +1,6 @@
 package lf1.plp.functional1;
 
+import lf1.plp.expressions2.expression.ExpDeclaracao;
 import lf1.plp.expressions2.expression.Expressao;
 import lf1.plp.expressions2.expression.Valor;
 import lf1.plp.expressions2.memory.AmbienteCompilacao;
@@ -27,6 +28,10 @@ public class Programa {
 		throws VariavelJaDeclaradaException, VariavelNaoDeclaradaException {
 		AmbienteCompilacao ambComp = new ContextoCompilacao();
 		return exp.checaTipo(ambComp);
+	}
+	
+	public boolean checaTipoParametro() throws VariavelNaoDeclaradaException {
+		return exp.checaTipoParametro();
 	}
 
 	public Expressao getExpressao() {

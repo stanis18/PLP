@@ -1,4 +1,1 @@
-let fun fat n =
-		    let fun mult x y = if (x == 0) then (0) else (y + (mult((x - 1),y)))
-		    in if (n == 0) then (1) else (mult(n,(fat (n - 1))))
-		in fat(5)
+let @requires n = 3 fun fat n = n + 3 in fat(4)

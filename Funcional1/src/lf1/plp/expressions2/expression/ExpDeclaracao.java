@@ -173,4 +173,10 @@ public class ExpDeclaracao implements Expressao {
 		
 		return retorno;
 	}
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

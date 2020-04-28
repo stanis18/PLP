@@ -72,4 +72,10 @@ public class ExpEquals extends ExpBinaria {
 	public ExpBinaria clone() {
 		return new ExpEquals(esq.clone(), dir.clone());
 	}
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

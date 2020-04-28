@@ -9,6 +9,7 @@ import lf1.plp.expressions2.expression.Id;
 import lf1.plp.expressions2.memory.AmbienteCompilacao;
 import lf1.plp.expressions2.memory.VariavelJaDeclaradaException;
 import lf1.plp.expressions2.memory.VariavelNaoDeclaradaException;
+import lf1.plp.functional1.declaration.DecVariavel;
 
 public class DefFuncao {
 
@@ -124,5 +125,16 @@ public class DefFuncao {
 		}
 		
 		return new DefFuncao(novaLista, this.exp.clone());
+	}
+	
+	public boolean checaTipoParametro(List<DecVariavel> listExpressao, Expressao expressao) {
+		
+		for (int i = 0; i < getAridade(); i++) {
+			if(! listExpressao.get(i).getId().getIdName().equals(getListaId().get(i).getIdName()) ) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }

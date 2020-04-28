@@ -67,4 +67,10 @@ public class ExpMenos extends ExpUnaria {
 	
 		return new ExpMenos(exp.clone());
 	}
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

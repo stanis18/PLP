@@ -31,4 +31,11 @@ public class ValorBooleano extends ValorConcreto<Boolean>{
 	public ValorBooleano clone() {
 		return new ValorBooleano(this.valor());
 	}
+
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

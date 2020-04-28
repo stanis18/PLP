@@ -65,4 +65,11 @@ public class ExpAnd extends ExpBinaria{
 	public ExpBinaria clone() {
 		return new ExpAnd(esq.clone(), dir.clone());
 	}
+
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

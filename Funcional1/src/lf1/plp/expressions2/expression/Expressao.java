@@ -47,4 +47,7 @@ public interface Expressao {
 	 * @return
 	 */
 	public Expressao clone();
+	
+	
+	public boolean checaTipoParametro();
 }

@@ -117,4 +117,10 @@ public class IfThenElse implements Expressao {
 	public IfThenElse clone() {
 		return new IfThenElse(this.condicao.clone(), this.then.clone(), this.elseExpressao.clone());
 	}
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

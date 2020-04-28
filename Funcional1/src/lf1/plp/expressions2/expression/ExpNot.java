@@ -66,4 +66,10 @@ public class ExpNot extends ExpUnaria{
 	public ExpUnaria clone() {
 		return new ExpNot(exp.clone());
 	}
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

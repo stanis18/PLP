@@ -32,4 +32,10 @@ public class ValorIrredutivel implements Valor {
 	public ValorIrredutivel clone() {
 		return this;
 	}
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

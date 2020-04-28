@@ -97,5 +97,11 @@ public class DecVariavel implements DeclaracaoFuncional {
 	public void incluir(AmbienteExecucaoFuncional amb, AmbienteExecucaoFuncional aux) throws VariavelJaDeclaradaException {
 		amb.map(getId(), aux.get(getId()));
 	}
+
+	@Override
+	public boolean checaTipoParametro(Expressao expressao) throws VariavelNaoDeclaradaException {
+		// TODO Auto-generated method stub
+		return true;
+	}
 	
 }

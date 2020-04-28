@@ -68,4 +68,10 @@ public class ExpLength extends ExpUnaria {
 	public ExpUnaria clone() {
 		return new ExpLength(exp.clone());
 	}
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

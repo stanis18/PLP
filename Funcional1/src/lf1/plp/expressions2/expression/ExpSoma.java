@@ -62,4 +62,10 @@ public class ExpSoma extends ExpBinaria {
 	public ExpBinaria clone() {
 		return new ExpSoma(esq.clone(), dir.clone());
 	}
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

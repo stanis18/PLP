@@ -133,5 +133,11 @@ public class ExpDeclaracao implements Expressao {
 	public ExpDeclaracao clone(){
 		return new ExpDeclaracao(declaracao.clone(), this.expressao.clone());
 	}
+	
+	
+	public boolean checaTipoParametro() {
+		//metodo onde sera possivel verificar o valor da variavel.. 
+		return declaracao.checaTipoParametro(expressao);
+	}
 
 }

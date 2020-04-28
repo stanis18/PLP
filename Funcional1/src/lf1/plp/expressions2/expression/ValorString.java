@@ -35,4 +35,10 @@ public class ValorString extends ValorConcreto<String> {
 	public ValorString clone() {
 		return new ValorString(this.valor());
 	}
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

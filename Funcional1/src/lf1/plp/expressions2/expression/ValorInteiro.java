@@ -30,4 +30,10 @@ public class ValorInteiro extends ValorConcreto<Integer> {
 	public ValorInteiro clone(){
 		return new ValorInteiro(this.valor());
 	}
+
+	@Override
+	public boolean checaTipoParametro() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }
