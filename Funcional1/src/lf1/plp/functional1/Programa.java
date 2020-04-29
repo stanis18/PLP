@@ -31,7 +31,8 @@ public class Programa {
 	}
 	
 	public boolean checaTipoParametro() throws VariavelNaoDeclaradaException {
-		return exp.checaTipoParametro();
+		AmbienteExecucaoFuncional ambExec = new ContextoExecucaoFuncional();
+		return exp.checaTipoParametro(ambExec);
 	}
 
 	public Expressao getExpressao() {

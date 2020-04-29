@@ -3,6 +3,7 @@ package lf1.plp.expressions2.expression;
 import lf1.plp.expressions1.util.Tipo;
 import lf1.plp.expressions1.util.TipoPrimitivo;
 import lf1.plp.expressions2.memory.AmbienteCompilacao;
+import lf1.plp.expressions2.memory.AmbienteExecucao;
 
 /**
  * Objetos desta classe encapsulam valor inteiro.
@@ -32,7 +33,7 @@ public class ValorInteiro extends ValorConcreto<Integer> {
 	}
 
 	@Override
-	public boolean checaTipoParametro() {
+	public boolean checaTipoParametro(AmbienteExecucao ambiente) {
 		// TODO Auto-generated method stub
 		return true;
 	}

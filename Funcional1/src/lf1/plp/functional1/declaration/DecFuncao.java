@@ -24,11 +24,9 @@ public class DecFuncao implements DeclaracaoFuncional {
 
 	private DefFuncao funcao;
 	
-	private List<DecVariavel> listExpressao;
 
-	public DecFuncao(Id idFun, List<Id> argsId, Expressao exp, List<DecVariavel> listExpressao) {
+	public DecFuncao(Id idFun, List<Id> argsId, Expressao exp) {
 		this.id = idFun;
-		this.listExpressao = listExpressao;
 		this.funcao = new DefFuncao(argsId, exp);
 	}
 
@@ -131,7 +129,7 @@ public class DecFuncao implements DeclaracaoFuncional {
 
 	public DecFuncao clone() {
 		DefFuncao aux = this.funcao.clone();
-		return new DecFuncao(this.id.clone(), aux.getListaId(), aux.getExp(), this.listExpressao);
+		return new DecFuncao(this.id.clone(), aux.getListaId(), aux.getExp());
 	}
 
 	public void elabora(AmbienteCompilacao amb, AmbienteCompilacao aux) throws VariavelJaDeclaradaException {
@@ -153,7 +151,7 @@ public class DecFuncao implements DeclaracaoFuncional {
 	@Override
 	public boolean checaTipoParametro(Expressao expressao) throws VariavelNaoDeclaradaException {
 		
-		return funcao.checaTipoParametro(listExpressao, expressao);
+		return funcao.checaTipoParametro();
 	}
 
 }

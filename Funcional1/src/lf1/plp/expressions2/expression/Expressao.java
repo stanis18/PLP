@@ -49,5 +49,5 @@ public interface Expressao {
 	public Expressao clone();
 	
 	
-	public boolean checaTipoParametro();
+	public boolean checaTipoParametro(AmbienteExecucao ambiente);
 }

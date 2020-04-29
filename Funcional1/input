@@ -1,1 +1,1 @@
-let @requires n = 3 fun fat n = n + 3 in fat(4)
+let @requires n = 3+9 fun fat n = n + 3 in fat(4)

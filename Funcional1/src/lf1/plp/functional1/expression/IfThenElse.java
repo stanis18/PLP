@@ -119,7 +119,7 @@ public class IfThenElse implements Expressao {
 	}
 
 	@Override
-	public boolean checaTipoParametro() {
+	public boolean checaTipoParametro(AmbienteExecucao ambiente) {
 		// TODO Auto-generated method stub
 		return true;
 	}

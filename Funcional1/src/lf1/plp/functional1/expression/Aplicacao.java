@@ -187,8 +187,29 @@ public class Aplicacao implements Expressao {
 	}
 
 	@Override
-	public boolean checaTipoParametro() {
+	public boolean checaTipoParametro(AmbienteExecucao ambiente) {
 		// TODO Auto-generated method stub
 		return true;
 	}
+	
+	
+	
+	public Map<Id, Valor> avaliarParametros(AmbienteExecucao ambiente)
+			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
+		
+		AmbienteExecucaoFuncional ambienteFuncional = (AmbienteExecucaoFuncional) ambiente;
+
+		DefFuncao funcao;
+		try {
+			funcao = ambienteFuncional.getFuncao(func);
+		} catch (IdentificadorNaoDeclaradoException e) {
+			throw new VariavelJaDeclaradaException(func);
+		}
+
+		Map<Id, Valor> mapIdValor = resolveParametersBindings(ambiente, funcao);
+
+		
+		return mapIdValor;
+	}
+	
 }

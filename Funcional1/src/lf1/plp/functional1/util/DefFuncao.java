@@ -127,13 +127,7 @@ public class DefFuncao {
 		return new DefFuncao(novaLista, this.exp.clone());
 	}
 	
-	public boolean checaTipoParametro(List<DecVariavel> listExpressao, Expressao expressao) {
-		
-		for (int i = 0; i < getAridade(); i++) {
-			if(! listExpressao.get(i).getId().getIdName().equals(getListaId().get(i).getIdName()) ) {
-				return false;
-			}
-		}
+	public boolean checaTipoParametro() {
 		
 		return true;
 	}

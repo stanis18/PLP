@@ -74,7 +74,7 @@ public class ExpEquals extends ExpBinaria {
 	}
 
 	@Override
-	public boolean checaTipoParametro() {
+	public boolean checaTipoParametro(AmbienteExecucao ambiente) {
 		// TODO Auto-generated method stub
 		return true;
 	}

@@ -34,7 +34,7 @@ public class ValorIrredutivel implements Valor {
 	}
 
 	@Override
-	public boolean checaTipoParametro() {
+	public boolean checaTipoParametro(AmbienteExecucao ambiente) {
 		// TODO Auto-generated method stub
 		return true;
 	}

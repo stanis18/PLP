@@ -3,17 +3,20 @@ package lf1.plp.functional1.expression;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import lf1.plp.expressions1.util.Tipo;
 import lf1.plp.expressions2.expression.Expressao;
 import lf1.plp.expressions2.expression.Id;
 import lf1.plp.expressions2.expression.Valor;
+import lf1.plp.expressions2.expression.ValorConcreto;
 import lf1.plp.expressions2.memory.AmbienteCompilacao;
 import lf1.plp.expressions2.memory.AmbienteExecucao;
 import lf1.plp.expressions2.memory.ContextoCompilacao;
 import lf1.plp.expressions2.memory.VariavelJaDeclaradaException;
 import lf1.plp.expressions2.memory.VariavelNaoDeclaradaException;
+import lf1.plp.functional1.declaration.DecVariavel;
 import lf1.plp.functional1.declaration.DeclaracaoFuncional;
 import lf1.plp.functional1.memory.AmbienteExecucaoFuncional;
 import lf1.plp.functional1.memory.ContextoExecucaoFuncional;
@@ -23,12 +26,14 @@ public class ExpDeclaracao implements Expressao {
 
 	DeclaracaoFuncional declaracao;
 	Expressao expressao;
+	List<DecVariavel> listExpressao;
 
 	public ExpDeclaracao(
 			DeclaracaoFuncional declaracao,
-			Expressao expressao) {
+			Expressao expressao, List<DecVariavel> listExpressao) {
 		this.declaracao = declaracao;
 		this.expressao = expressao;
+		this.listExpressao = listExpressao;
 	}
 
 	/**
@@ -131,13 +136,46 @@ public class ExpDeclaracao implements Expressao {
 	}
 	
 	public ExpDeclaracao clone(){
-		return new ExpDeclaracao(declaracao.clone(), this.expressao.clone());
+		return new ExpDeclaracao(declaracao.clone(), this.expressao.clone(), this.listExpressao);
 	}
 	
 	
-	public boolean checaTipoParametro() {
+	public boolean checaTipoParametro(AmbienteExecucao ambienteFuncional) {
+		
+		
+		AmbienteExecucaoFuncional amb = (AmbienteExecucaoFuncional)ambienteFuncional;
+		amb.incrementa();
+		AmbienteExecucaoFuncional aux = new ContextoExecucaoFuncional();
+		aux.incrementa();
+		declaracao.elabora(amb, aux);
+		declaracao.incluir(amb, aux);
+		aux.restaura();
+		
+		Aplicacao aplicacao = (Aplicacao) expressao;
+		
+		Map<Id, Valor> mapIdValor = aplicacao.avaliarParametros(amb);
+		amb.restaura();
+		
+		for (DecVariavel decVar : listExpressao) {
+			
+			ValorConcreto<?> valorParametro = (ValorConcreto<?>)mapIdValor.get(decVar.getId());
+			
+			if(valorParametro == null) {
+				return false;
+			}
+			
+			ValorConcreto<?> valor = (ValorConcreto<?>)decVar.getExpressao().avaliar(amb);
+			
+			
+			if(!valor.equals(valorParametro)) {
+				return false;
+			}
+			
+		}
+		
+		
 		//metodo onde sera possivel verificar o valor da variavel.. 
-		return declaracao.checaTipoParametro(expressao);
+		return true;
 	}
 
 }
