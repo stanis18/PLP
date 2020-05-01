@@ -1,9 +1,13 @@
 { 
    var a  =  1 ,
+   
    proc incA (int z)  {
+     @pre z == 3 AND a == 1  end 
      a := a + z
    };
+   
    call incA(3);
-   call incA(5);
+   write(a);
+   call incA(3);
    write(a)
 }

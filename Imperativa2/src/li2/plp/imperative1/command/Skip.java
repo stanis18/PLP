@@ -1,6 +1,7 @@
 package li2.plp.imperative1.command;
 
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
+import li2.plp.imperative1.memory.PreRequisitosException;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 
 ;
@@ -17,7 +18,7 @@ public class Skip implements Comando {
 	 * 
 	 */
 	public AmbienteExecucaoImperativa executar(
-			AmbienteExecucaoImperativa ambiente) {
+			AmbienteExecucaoImperativa ambiente) throws PreRequisitosException {
 		return ambiente;
 	}
 

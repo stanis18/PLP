@@ -1,6 +1,7 @@
 package li2.plp.imperative2.declaration;
 
 import li2.plp.expressions1.util.Tipo;
+import li2.plp.expressions2.expression.Expressao;
 import li2.plp.imperative1.command.Comando;
 import li2.plp.imperative2.util.TipoProcedimento;
 
@@ -19,6 +20,9 @@ public class DefProcedimento {
 	 * Declara�ao de Comando
 	 */
 	private Comando comando;
+	
+	
+	private Expressao expressao;
 
 	/**
 	 * Construtor
@@ -29,9 +33,10 @@ public class DefProcedimento {
 	 *            Declara�ao de Comando.
 	 */
 	public DefProcedimento(ListaDeclaracaoParametro parametrosFormais,
-			Comando comando) {
+			Comando comando, Expressao expressao) {
 		this.parametrosFormais = parametrosFormais;
 		this.comando = comando;
+		this.expressao = expressao;
 	}
 
 	/**
@@ -55,4 +60,9 @@ public class DefProcedimento {
 	public Tipo getTipo() {
 		return new TipoProcedimento(parametrosFormais.getTipos());
 	}
+
+	public Expressao getExpressao() {
+		return expressao;
+	}
+		
 }

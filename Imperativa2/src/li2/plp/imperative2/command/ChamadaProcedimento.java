@@ -2,6 +2,9 @@ package li2.plp.imperative2.command;
 
 import li2.plp.expressions1.util.Tipo;
 import li2.plp.expressions2.expression.Id;
+import li2.plp.expressions2.expression.Valor;
+import li2.plp.expressions2.expression.ValorBooleano;
+import li2.plp.expressions2.expression.ValorConcreto;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
@@ -12,6 +15,7 @@ import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
 import li2.plp.imperative1.memory.ListaValor;
+import li2.plp.imperative1.memory.PreRequisitosException;
 import li2.plp.imperative2.declaration.DefProcedimento;
 import li2.plp.imperative2.declaration.ListaDeclaracaoParametro;
 import li2.plp.imperative2.memory.AmbienteExecucaoImperativa2;
@@ -31,7 +35,7 @@ public class ChamadaProcedimento implements Comando {
 
 	public AmbienteExecucaoImperativa executar(AmbienteExecucaoImperativa amb)
 			throws IdentificadorNaoDeclaradoException,
-			IdentificadorJaDeclaradoException, EntradaVaziaException, ErroTipoEntradaException {
+			IdentificadorJaDeclaradoException, EntradaVaziaException, ErroTipoEntradaException, PreRequisitosException {
 		AmbienteExecucaoImperativa2 ambiente = (AmbienteExecucaoImperativa2) amb;
 		DefProcedimento procedimento = ambiente
 				.getProcedimento(nomeProcedimento);
@@ -45,6 +49,17 @@ public class ChamadaProcedimento implements Comando {
 				.getParametrosFormais();
 		AmbienteExecucaoImperativa2 aux = bindParameters(ambiente,
 				parametrosFormais);
+		
+		
+		//Inserir Avalicacao da expressao passada.. Ja que nesse ponto existe a vinculacao com os parametros.. 
+		
+		Valor avaliar = procedimento.getExpressao().avaliar(aux);		
+		ValorBooleano v = (ValorBooleano)avaliar;
+		
+		if(!v.valor()) {
+			throw new PreRequisitosException(); 
+		}
+		
 		aux = (AmbienteExecucaoImperativa2) procedimento.getComando().executar(
 				aux);
 		aux.restaura();

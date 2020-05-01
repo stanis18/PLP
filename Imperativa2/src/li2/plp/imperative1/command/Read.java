@@ -8,6 +8,7 @@ import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
+import li2.plp.imperative1.memory.PreRequisitosException;
 
 public class Read implements IO {
 
@@ -30,7 +31,7 @@ public class Read implements IO {
 	public AmbienteExecucaoImperativa executar(
 			AmbienteExecucaoImperativa ambiente)
 			throws VariavelJaDeclaradaException, VariavelNaoDeclaradaException,
-			EntradaVaziaException, ErroTipoEntradaException {
+			EntradaVaziaException, ErroTipoEntradaException, PreRequisitosException {
 				
 		Valor valorID = ambiente.get(id);
 		Valor valorRead =ambiente.read();

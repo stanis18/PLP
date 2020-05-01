@@ -6,6 +6,7 @@ import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
 import li2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
+import li2.plp.imperative1.memory.PreRequisitosException;
 
 public class Atribuicao implements Comando {
 
@@ -30,7 +31,7 @@ public class Atribuicao implements Comando {
 	 */
 	public AmbienteExecucaoImperativa executar(
 			AmbienteExecucaoImperativa ambiente)
-			throws VariavelJaDeclaradaException, VariavelNaoDeclaradaException {
+			throws VariavelJaDeclaradaException, VariavelNaoDeclaradaException, PreRequisitosException {
 		ambiente.changeValor(id, expressao.avaliar(ambiente));
 		return ambiente;
 	}
