@@ -757,12 +757,29 @@ Expressao PDefPrecondicoes():
 }
 {
 
-< PRE_CONDITION > ( expressao = PExpressao() < END_CONDITION >)
+	(
+        LOOKAHEAD (< PRE_CONDITION > PExpressao() <END_CONDITION>)
+        	< PRE_CONDITION > expressao = PExpressao() <END_CONDITION>
+      | LOOKAHEAD (< PRE_CONDITION > expressao = PExpAnd() <END_CONDITION>)
+      		< PRE_CONDITION > expressao = PExpAnd2222() <END_CONDITION>
+   	)
+
 	{
 		return expressao;
 	}
 }
 
+ExpAnd PExpAnd2222() :
+{
+	Expressao esq;
+	Expressao dir;
+}
+{
+	esq = PExpressao()
+	<AND>
+	dir = PExpressao()
+	{return new ExpAnd(esq, dir);}
+}
 
 
 
