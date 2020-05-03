@@ -766,37 +766,50 @@ Expressao PDefPoscondicoes():
 }
 
 
-
-
 Expressao PDefPrecondicoes():
 {
   Expressao expressao;
 }
 {
-
-	(
-        LOOKAHEAD (< PRE_CONDITION > PExpressao() <END_CONDITION>)
-        	< PRE_CONDITION > expressao = PExpressao() <END_CONDITION>
-      | LOOKAHEAD (< PRE_CONDITION > expressao = PExpAnd() <END_CONDITION>)
-      		< PRE_CONDITION > expressao = PExpAnd2222() <END_CONDITION>
-   	)
+	
+   		< PRE_CONDITION > expressao = PDefTeste() < END_CONDITION> 
 
 	{
 		return expressao;
 	}
 }
 
-ExpAnd PExpAnd2222() :
+
+
+
+Expressao PDefTeste():
 {
-	Expressao esq;
-	Expressao dir;
+  Expressao expressaoEsquerda;
+  Expressao expressaoDireita;
+  Expressao iterador;
+  Expressao expressao = null;
 }
 {
-	esq = PExpressao()
-	<AND>
-	dir = PExpressao()
-	{return new ExpAnd(esq, dir);}
+	
+ 		( iterador  = PExpEquals() { 
+
+				if( expressao == null) {
+					expressao = new ExpAnd(iterador, new ValorBooleano(true));
+				} else {
+					expressao = new ExpAnd(expressao, iterador);
+				}
+
+			}
+ 		)* 
+
+	{
+		return expressao;
+	}
 }
+
+
+
+
 
 
 
