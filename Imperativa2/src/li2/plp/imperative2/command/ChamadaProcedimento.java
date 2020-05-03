@@ -15,6 +15,7 @@ import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
 import li2.plp.imperative1.memory.ListaValor;
+import li2.plp.imperative1.memory.PosRequisitosException;
 import li2.plp.imperative1.memory.PreRequisitosException;
 import li2.plp.imperative2.declaration.DefProcedimento;
 import li2.plp.imperative2.declaration.ListaDeclaracaoParametro;
@@ -35,7 +36,7 @@ public class ChamadaProcedimento implements Comando {
 
 	public AmbienteExecucaoImperativa executar(AmbienteExecucaoImperativa amb)
 			throws IdentificadorNaoDeclaradoException,
-			IdentificadorJaDeclaradoException, EntradaVaziaException, ErroTipoEntradaException, PreRequisitosException {
+			IdentificadorJaDeclaradoException, EntradaVaziaException, ErroTipoEntradaException, PreRequisitosException,PosRequisitosException {
 		AmbienteExecucaoImperativa2 ambiente = (AmbienteExecucaoImperativa2) amb;
 		DefProcedimento procedimento = ambiente
 				.getProcedimento(nomeProcedimento);
@@ -53,7 +54,7 @@ public class ChamadaProcedimento implements Comando {
 		
 		//Inserir Avalicacao da expressao passada.. Ja que nesse ponto existe a vinculacao com os parametros.. 
 		
-		Valor avaliar = procedimento.getExpressao().avaliar(aux);		
+		Valor avaliar = procedimento.getExpressaoPre().avaliar(aux);		
 		ValorBooleano v = (ValorBooleano)avaliar;
 		
 		if(!v.valor()) {
@@ -63,6 +64,14 @@ public class ChamadaProcedimento implements Comando {
 		aux = (AmbienteExecucaoImperativa2) procedimento.getComando().executar(
 				aux);
 		aux.restaura();
+		
+		avaliar = procedimento.getExpressaoPos().avaliar(aux);		
+		v = (ValorBooleano)avaliar;
+		
+		if(!v.valor()) {
+			throw new PosRequisitosException(); 
+		}
+		
 		return aux;
 
 	}

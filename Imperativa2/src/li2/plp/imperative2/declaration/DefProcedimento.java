@@ -21,8 +21,9 @@ public class DefProcedimento {
 	 */
 	private Comando comando;
 	
+	private Expressao expressaoPre;
 	
-	private Expressao expressao;
+	private Expressao expressaoPos;
 
 	/**
 	 * Construtor
@@ -33,10 +34,11 @@ public class DefProcedimento {
 	 *            Declara�ao de Comando.
 	 */
 	public DefProcedimento(ListaDeclaracaoParametro parametrosFormais,
-			Comando comando, Expressao expressao) {
+			Comando comando, Expressao expressaoPre, Expressao expressaoPos) {
 		this.parametrosFormais = parametrosFormais;
 		this.comando = comando;
-		this.expressao = expressao;
+		this.expressaoPre = expressaoPre;
+		this.expressaoPos = expressaoPos;
 	}
 
 	/**
@@ -61,8 +63,12 @@ public class DefProcedimento {
 		return new TipoProcedimento(parametrosFormais.getTipos());
 	}
 
-	public Expressao getExpressao() {
-		return expressao;
+	public Expressao getExpressaoPre() {
+		return expressaoPre;
+	}
+	
+	public Expressao getExpressaoPos() {
+		return expressaoPos;
 	}
 		
 }

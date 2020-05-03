@@ -734,21 +734,38 @@ DefProcedimento PDefProcedimento():
 {
 	ListaDeclaracaoParametro listaPar = null;
 	Comando comando;
-	Expressao expressao=null;
+	Expressao expressaoPre=null;
+	Expressao expressaoPos=null;
 }
 {
     (
-		<LBRACE> [expressao = PDefPrecondicoes()] comando = PComando() <RBRACE>
-	   	| listaPar = PListaDeclaracaoParametro() <RPAREN> <LBRACE> [expressao = PDefPrecondicoes()] comando = PComando() <RBRACE>
+		<LBRACE> [expressaoPre = PDefPrecondicoes()] comando = PComando() [expressaoPos = PDefPoscondicoes()] <RBRACE>
+	   	| listaPar = PListaDeclaracaoParametro() <RPAREN> <LBRACE> [expressaoPre = PDefPrecondicoes()] comando = PComando() [expressaoPos = PDefPoscondicoes()] <RBRACE>
     )
 	{
 	    if(listaPar == null) {
 	        listaPar = new ListaDeclaracaoParametro();
 	    }
-	    return new DefProcedimento (listaPar, comando, expressao);
+	    return new DefProcedimento (listaPar, comando, expressaoPre, expressaoPos);
 	}
 	
 }
+
+
+Expressao PDefPoscondicoes():
+{
+  Expressao expressao;
+}
+{
+
+	<POST_CONDITION> expressao = PExpressao() <END_CONDITION>
+
+	{
+		return expressao;
+	}
+}
+
+
 
 
 Expressao PDefPrecondicoes():

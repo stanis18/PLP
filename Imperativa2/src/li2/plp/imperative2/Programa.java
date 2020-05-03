@@ -8,6 +8,7 @@ import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
 import li2.plp.imperative1.memory.ListaValor;
+import li2.plp.imperative1.memory.PosRequisitosException;
 import li2.plp.imperative1.memory.PreRequisitosException;
 
 public class Programa {
@@ -34,7 +35,7 @@ public class Programa {
 	 */
 	public ListaValor executar(AmbienteExecucaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException,
-			IdentificadorNaoDeclaradoException, EntradaVaziaException, ErroTipoEntradaException, PreRequisitosException {
+			IdentificadorNaoDeclaradoException, EntradaVaziaException, ErroTipoEntradaException, PreRequisitosException,PosRequisitosException {
 		ambiente = comando.executar(ambiente);
 		return ambiente.getSaida();
 	}
