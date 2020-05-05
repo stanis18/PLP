@@ -532,10 +532,99 @@ Expressao PExpBinaria() :
 			retorno = PExpEquals()
 		| LOOKAHEAD (PExpPrimaria() <PLUS>)
 			retorno = PExpSoma()
+
+		| LOOKAHEAD (PExpPrimaria() <GT>)
+			retorno = PExpGreaterThan()
+		| LOOKAHEAD (PExpPrimaria() <GE>)
+			retorno = PExpGreaterThanEquals()
+		| LOOKAHEAD (PExpPrimaria() <LT>)
+			retorno = PExpLessThan()
+		| LOOKAHEAD (PExpPrimaria() <LE>)
+			retorno = PExpLessThanEquals()
+		| LOOKAHEAD (PExpPrimaria() <STAR>)
+			retorno = PExpMultiplicacao()
+		| LOOKAHEAD (PExpPrimaria() <SLASH>)
+			retorno = PExpDivisao()
+		
 	)
 	{
 		return retorno;
 	}
+}
+
+
+ExpMultiplicacao PExpMultiplicacao() :
+{
+	Expressao esq;
+	Expressao dir;
+}
+{
+	esq = PExpPrimaria()
+	<STAR>
+	dir = PExpressao()
+	{return new ExpMultiplicacao(esq, dir);}
+}
+
+
+ExpDivisao PExpDivisao() :
+{
+	Expressao esq;
+	Expressao dir;
+}
+{
+	esq = PExpPrimaria()
+	<SLASH>
+	dir = PExpressao()
+	{return new ExpDivisao(esq, dir);}
+}
+
+
+ExpGreaterThan PExpGreaterThan() :
+{
+	Expressao esq;
+	Expressao dir;
+}
+{
+	esq = PExpPrimaria()
+	<GT>
+	dir = PExpressao()
+	{return new ExpGreaterThan(esq, dir);}
+}
+
+ExpGreaterThanEquals PExpGreaterThanEquals() :
+{
+	Expressao esq;
+	Expressao dir;
+}
+{
+	esq = PExpPrimaria()
+	<GE>
+	dir = PExpressao()
+	{return new ExpGreaterThanEquals(esq, dir);}
+}
+
+ExpLessThan PExpLessThan() :
+{
+	Expressao esq;
+	Expressao dir;
+}
+{
+	esq = PExpPrimaria()
+	<LT>
+	dir = PExpressao()
+	{return new ExpLessThan(esq, dir);}
+}
+
+ExpLessThanEquals PExpLessThanEquals() :
+{
+	Expressao esq;
+	Expressao dir;
+}
+{
+	esq = PExpPrimaria()
+	<LE>
+	dir = PExpressao()
+	{return new ExpLessThanEquals(esq, dir);}
 }
 
 ExpSoma PExpSoma() :
@@ -621,7 +710,7 @@ Expressao PExpressao() :
 	(
 	    LOOKAHEAD (2) 
 	  		retorno = PExpUnaria()
-	  | LOOKAHEAD (PExpPrimaria() (<OR> | <AND> | <MINUS> | <PLUS> | <EQ> | <CONCAT>)) 
+	  | LOOKAHEAD (PExpPrimaria() (<OR> | <AND> | <MINUS> | <PLUS> | <EQ> | <CONCAT> | <LT> | <LE> | <GT> | <GE> | <SLASH> | <STAR>)) 
 	  		retorno = PExpBinaria()
 	  |
 	    retorno = PExpPrimaria()
@@ -779,20 +868,13 @@ Expressao PDefPrecondicoes():
 	}
 }
 
-
-
-
 Expressao PDefTeste():
 {
-  Expressao expressaoEsquerda;
-  Expressao expressaoDireita;
   Expressao iterador;
   Expressao expressao = null;
 }
 {
-	
- 		( iterador  = PExpEquals() { 
-
+ 		( iterador  = PExpressao() { 
 				if( expressao == null) {
 					expressao = new ExpAnd(iterador, new ValorBooleano(true));
 				} else {

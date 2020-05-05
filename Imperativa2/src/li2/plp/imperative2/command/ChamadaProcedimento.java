@@ -53,25 +53,25 @@ public class ChamadaProcedimento implements Comando {
 		
 		
 		//Inserir Avalicacao da expressao passada.. Ja que nesse ponto existe a vinculacao com os parametros.. 
-		
-		Valor avaliar = procedimento.getExpressaoPre().avaliar(aux);		
-		ValorBooleano v = (ValorBooleano)avaliar;
-		
-		if(!v.valor()) {
-			throw new PreRequisitosException(); 
+		if(procedimento.getExpressaoPre() != null) {
+			
+			ValorBooleano avaliacaoPre = (ValorBooleano)procedimento.getExpressaoPre().avaliar(aux);		
+			if(!avaliacaoPre.valor()) {
+				throw new PreRequisitosException(); 
+			}
 		}
 		
-		aux = (AmbienteExecucaoImperativa2) procedimento.getComando().executar(
-				aux);
+		aux = (AmbienteExecucaoImperativa2) procedimento.getComando().executar(aux);
+		
+		if(procedimento.getExpressaoPos() != null) {
+			
+			ValorBooleano avaliacaoPos = (ValorBooleano)procedimento.getExpressaoPos().avaliar(aux);		
+			if(!avaliacaoPos.valor()) {
+				throw new PosRequisitosException(); 
+			}
+		}
+		
 		aux.restaura();
-		
-		avaliar = procedimento.getExpressaoPos().avaliar(aux);		
-		v = (ValorBooleano)avaliar;
-		
-		if(!v.valor()) {
-			throw new PosRequisitosException(); 
-		}
-		
 		return aux;
 
 	}

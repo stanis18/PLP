@@ -1,13 +1,27 @@
 { 
-   var a  =  1 ,
+   var a  =  0 ,
+   var b = "",
+   var c = "aaa",
+   var d = "bbb",
    
-   proc incA (int z)  {
-     @pre z == 3 AND a == 1  end 
-     a := a + z
+   var x =  "btes",
+   var x1 = length x,
+   
+   proc incA (int z, int y)  {
+     @pre z >= 0  y > 0 end 
+     a := z / y
+     @pos a >= 0 end
+   },
+   
+   proc incB (string ss, string tt)  {
+     
+     @pre (length ss) > 1 end 
+     
+     b := ss ++ tt
+     
+     @pos ((length ss) + (length tt)) == 6 end
    };
    
-   call incA(3);
-   write(a);
-   call incA(3);
-   write(a)
+   call incB("aaa", "bbb");
+   write(b)
 }
