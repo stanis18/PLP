@@ -19,7 +19,7 @@
      
      b := ss ++ tt
      
-     @pos ((length ss) + (length tt)) == 6 end
+     @pos ((length ss) + (length tt)) == 6 (length b) == 6 end
    };
    
    call incB("aaa", "bbb");
