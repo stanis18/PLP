@@ -36,7 +36,6 @@ public class ExpBooleana implements Expressao {
 
 	@Override
 	public Valor avaliar(AmbienteExecucao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		// TODO Auto-generated method stub
 		return getExp().avaliar(amb);
 	}
 
