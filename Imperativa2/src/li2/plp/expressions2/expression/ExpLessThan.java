@@ -1,6 +1,7 @@
 package li2.plp.expressions2.expression;
 
 import li2.plp.expressions1.util.Tipo;
+import li2.plp.expressions1.util.TipoPrimitivo;
 import li2.plp.expressions2.memory.AmbienteCompilacao;
 import li2.plp.expressions2.memory.AmbienteExecucao;
 import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
@@ -19,8 +20,7 @@ public class ExpLessThan extends ExpBinaria{
 
 	@Override
 	public Tipo getTipo(AmbienteCompilacao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		// TODO Auto-generated method stub
-		return null;
+		return TipoPrimitivo.BOOLEANO;
 	}
 
 	@Override

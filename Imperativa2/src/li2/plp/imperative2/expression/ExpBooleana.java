@@ -1,6 +1,7 @@
 package li2.plp.imperative2.expression;
 
 import li2.plp.expressions1.util.Tipo;
+import li2.plp.expressions1.util.TipoPrimitivo;
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.Valor;
 import li2.plp.expressions2.memory.AmbienteCompilacao;
@@ -47,7 +48,7 @@ public class ExpBooleana implements Expressao {
 
 	@Override
 	public Tipo getTipo(AmbienteCompilacao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		return getExp().getTipo(amb);
+		return TipoPrimitivo.BOOLEANO;
 	}
 
 	@Override
