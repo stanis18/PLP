@@ -1,7 +1,7 @@
 package li2.plp.imperative1.command;
 
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
-import li2.plp.imperative1.memory.PreRequisitosException;
+import li2.plp.imperative2.memory.PreRequisitosException;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 
 ;

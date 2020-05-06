@@ -16,6 +16,7 @@ import li2.plp.imperative2.*;
 import li2.plp.imperative2.command.*;
 import li2.plp.imperative2.declaration.*;
 import li2.plp.imperative2.memory.*;
+import li2.plp.imperative2.expression.*;
 import java.util.*;
 
 public class Imp2Parser {
@@ -134,7 +135,6 @@ TOKEN : /* TOKENS DE IMPERATIVA 2 */
 | < CALL: "call" >
 | < PRE_CONDITION: "@pre" >
 | < POST_CONDITION: "@pos" >
-| < END_CONDITION: "end" >
 }
 
 TOKEN : /* TOKENS DOS POSS�VEIS TIPOS */
@@ -823,13 +823,13 @@ DefProcedimento PDefProcedimento():
 {
 	ListaDeclaracaoParametro listaPar = null;
 	Comando comando;
-	Expressao expressaoPre=null;
-	Expressao expressaoPos=null;
+	Expressao expressaoPre = null;
+	Expressao expressaoPos = null;
 }
 {
     (
-		<LBRACE> [expressaoPre = PDefPrecondicoes()] comando = PComando() [expressaoPos = PDefPoscondicoes()] <RBRACE>
-	   	| listaPar = PListaDeclaracaoParametro() <RPAREN> <LBRACE> [expressaoPre = PDefPrecondicoes()] comando = PComando() [expressaoPos = PDefPoscondicoes()] <RBRACE>
+		<LBRACE> [expressaoPre = PExpPrecondicoes()] comando = PComando() [expressaoPos = PExpPoscondicoes()] <RBRACE>
+	   	| listaPar = PListaDeclaracaoParametro() <RPAREN> <LBRACE> [expressaoPre = PExpPrecondicoes()] comando = PComando() [expressaoPos = PExpPoscondicoes()] <RBRACE>
     )
 	{
 	    if(listaPar == null) {
@@ -841,54 +841,31 @@ DefProcedimento PDefProcedimento():
 }
 
 
-Expressao PDefPoscondicoes():
+Expressao PExpPoscondicoes():
 {
-  Expressao expressao;
+  Expressao exp;
 }
 {
 
-	<POST_CONDITION> expressao = PDefExpressoesPrePos() <END_CONDITION>
+	<POST_CONDITION> exp = PExpressao() <SEMICOLON>
 
 	{
-		return expressao;
+		return new ExpBooleana(exp);
 	}
 }
 
 
-Expressao PDefPrecondicoes():
+Expressao PExpPrecondicoes():
 {
-  Expressao expressao;
+  Expressao exp;
 }
 {
-   		< PRE_CONDITION > expressao = PDefExpressoesPrePos() < END_CONDITION> 
+   		<PRE_CONDITION> exp = PExpressao() <SEMICOLON> 
 
 	{
-		return expressao;
+		return new ExpBooleana(exp);
 	}
 }
-
-Expressao PDefExpressoesPrePos():
-{
-  Expressao iterador;
-  Expressao expressao = null;
-}
-{
- 		( iterador  = PExpressao() { 
-				if( expressao == null) {
-					expressao = new ExpAnd(iterador, new ValorBooleano(true));
-				} else {
-					expressao = new ExpAnd(expressao, iterador);
-				}
-
-			}
- 		)* 
-
-	{
-		return expressao;
-	}
-}
-
-
 
 Tipo PTipo():
 {

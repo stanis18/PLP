@@ -8,19 +8,22 @@
    var x1 = length x,
    
    proc incA (int z, int y)  {
-     @pre z >= 0  y > 0 end 
+     @pre (z >= 0) and (y > 0); 
      a := z / y
-     @pos a >= 0 end
+     @pos a >= 0;
    },
    
    proc incB (string ss, string tt)  {
-     
-     @pre (length ss) > 1 end 
+     @pre (length ss) > 1;
      
      b := ss ++ tt
      
-     @pos ((length ss) + (length tt)) == 6 (length b) == 6 end
+     @pos (((length ss) + (length tt)) == 6) and ((length b) == 6);
    };
+
+   call incA(6, 2);
+
+   write(a);
    
    call incB("aaa", "bbb");
    write(b)

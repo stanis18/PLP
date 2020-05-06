@@ -10,8 +10,8 @@ import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
-import li2.plp.imperative1.memory.PosRequisitosException;
-import li2.plp.imperative1.memory.PreRequisitosException;
+import li2.plp.imperative2.memory.PosRequisitosException;
+import li2.plp.imperative2.memory.PreRequisitosException;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 

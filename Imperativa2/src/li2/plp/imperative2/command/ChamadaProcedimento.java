@@ -2,9 +2,7 @@ package li2.plp.imperative2.command;
 
 import li2.plp.expressions1.util.Tipo;
 import li2.plp.expressions2.expression.Id;
-import li2.plp.expressions2.expression.Valor;
 import li2.plp.expressions2.expression.ValorBooleano;
-import li2.plp.expressions2.expression.ValorConcreto;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
@@ -15,11 +13,11 @@ import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
 import li2.plp.imperative1.memory.ListaValor;
-import li2.plp.imperative1.memory.PosRequisitosException;
-import li2.plp.imperative1.memory.PreRequisitosException;
 import li2.plp.imperative2.declaration.DefProcedimento;
 import li2.plp.imperative2.declaration.ListaDeclaracaoParametro;
 import li2.plp.imperative2.memory.AmbienteExecucaoImperativa2;
+import li2.plp.imperative2.memory.PosRequisitosException;
+import li2.plp.imperative2.memory.PreRequisitosException;
 import li2.plp.imperative2.util.TipoProcedimento;
 
 public class ChamadaProcedimento implements Comando {
@@ -54,20 +52,26 @@ public class ChamadaProcedimento implements Comando {
 		
 		//Inserir Avalicacao da expressao passada.. Ja que nesse ponto existe a vinculacao com os parametros.. 
 		if(procedimento.getExpressaoPre() != null) {
-			
-			ValorBooleano avaliacaoPre = (ValorBooleano)procedimento.getExpressaoPre().avaliar(aux);		
-			if(!avaliacaoPre.valor()) {
-				throw new PreRequisitosException(); 
+			try {
+				ValorBooleano avaliacaoPre = (ValorBooleano)procedimento.getExpressaoPre().avaliar(aux);		
+				if(!avaliacaoPre.valor()) {
+					throw new PreRequisitosException(); 
+				}
+			} catch (ClassCastException e) {
+				e.printStackTrace();
 			}
 		}
 		
 		aux = (AmbienteExecucaoImperativa2) procedimento.getComando().executar(aux);
 		
 		if(procedimento.getExpressaoPos() != null) {
-			
-			ValorBooleano avaliacaoPos = (ValorBooleano)procedimento.getExpressaoPos().avaliar(aux);		
-			if(!avaliacaoPos.valor()) {
-				throw new PosRequisitosException(); 
+			try {
+				ValorBooleano avaliacaoPos = (ValorBooleano)procedimento.getExpressaoPos().avaliar(aux);		
+				if(!avaliacaoPos.valor()) {
+					throw new PosRequisitosException(); 
+				}
+			} catch (ClassCastException e) {
+				e.printStackTrace();
 			}
 		}
 		
