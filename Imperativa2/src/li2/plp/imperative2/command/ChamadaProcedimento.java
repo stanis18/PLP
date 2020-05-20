@@ -48,31 +48,17 @@ public class ChamadaProcedimento implements Comando {
 				.getParametrosFormais();
 		AmbienteExecucaoImperativa2 aux = bindParameters(ambiente,
 				parametrosFormais);
-		
-		
-		//Inserir Avalicacao da expressao passada.. Ja que nesse ponto existe a vinculacao com os parametros.. 
+		 
 		if(procedimento.getExpressaoPre() != null) {
-			try {
-				ValorBooleano avaliacaoPre = (ValorBooleano)procedimento.getExpressaoPre().avaliar(aux);		
-				if(!avaliacaoPre.valor()) {
-					throw new PreRequisitosException(); 
-				}
-			} catch (ClassCastException e) {
-				e.printStackTrace();
-			}
+			ValorBooleano avaliacaoPre = (ValorBooleano)procedimento.getExpressaoPre().avaliar(aux);		
+			if(!avaliacaoPre.valor()) throw new PreRequisitosException();
 		}
 		
 		aux = (AmbienteExecucaoImperativa2) procedimento.getComando().executar(aux);
 		
 		if(procedimento.getExpressaoPos() != null) {
-			try {
-				ValorBooleano avaliacaoPos = (ValorBooleano)procedimento.getExpressaoPos().avaliar(aux);		
-				if(!avaliacaoPos.valor()) {
-					throw new PosRequisitosException(); 
-				}
-			} catch (ClassCastException e) {
-				e.printStackTrace();
-			}
+			ValorBooleano avaliacaoPos = (ValorBooleano)procedimento.getExpressaoPos().avaliar(aux);		
+			if(!avaliacaoPos.valor()) throw new PosRequisitosException();
 		}
 		
 		aux.restaura();

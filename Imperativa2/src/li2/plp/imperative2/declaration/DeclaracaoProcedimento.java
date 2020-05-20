@@ -47,7 +47,11 @@ public class DeclaracaoProcedimento extends Declaracao {
 		if (parametrosFormais.checaTipo(ambiente)) {
 			ambiente.incrementa();
 			ambiente = parametrosFormais.elabora(ambiente);
+			
 			resposta = getDefProcedimento().getComando().checaTipo(ambiente);
+			if (resposta && getDefProcedimento().getExpressaoPre() != null) resposta = resposta && getDefProcedimento().getExpressaoPre().checaTipo(ambiente);
+			if (resposta && getDefProcedimento().getExpressaoPos() != null) resposta = resposta && getDefProcedimento().getExpressaoPos().checaTipo(ambiente);
+			
 			ambiente.restaura();
 		} else {
 			resposta = false;

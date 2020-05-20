@@ -43,7 +43,7 @@ public class ExpBooleana implements Expressao {
 	@Override
 	public boolean checaTipo(AmbienteCompilacao amb)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		return getTipo(amb).eBooleano();
+		return getExp().getTipo(amb).eBooleano();
 	}
 
 	@Override
