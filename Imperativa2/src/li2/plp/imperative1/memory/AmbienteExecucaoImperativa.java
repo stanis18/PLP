@@ -15,4 +15,5 @@ public interface AmbienteExecucaoImperativa extends AmbienteExecucao {
 	public void write(Valor v);
 
 	public ListaValor getSaida();
+
 }

@@ -2,10 +2,12 @@ package li2.plp.imperative1.command;
 
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.Id;
+import li2.plp.expressions2.expression.ValorBooleano;
 import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
 import li2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
+import li2.plp.imperative2.memory.InvariantException;
 import li2.plp.imperative2.memory.PreRequisitosException;
 
 public class Atribuicao implements Comando {
@@ -33,6 +35,12 @@ public class Atribuicao implements Comando {
 			AmbienteExecucaoImperativa ambiente)
 			throws VariavelJaDeclaradaException, VariavelNaoDeclaradaException, PreRequisitosException {
 		ambiente.changeValor(id, expressao.avaliar(ambiente));
+		
+		if(ambiente.getExpInvariant(id) != null) {
+			ambiente.getExpInvariant(id).avaliar(ambiente);
+			ValorBooleano avaliacaoInv = (ValorBooleano) ambiente.getExpInvariant(id).avaliar(ambiente);
+			if(!avaliacaoInv.valor()) throw new InvariantException();
+		}
 		return ambiente;
 	}
 
