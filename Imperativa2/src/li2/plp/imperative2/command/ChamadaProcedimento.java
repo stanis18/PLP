@@ -54,6 +54,10 @@ public class ChamadaProcedimento implements Comando {
 			if(!avaliacaoPre.valor()) throw new PreRequisitosException();
 		}
 		
+		if (procedimento.getListaExpressaoAlt() != null) {
+			aux = (AmbienteExecucaoImperativa2) procedimento.getListaExpressaoAlt().elabora(aux);
+		}
+		
 		aux = (AmbienteExecucaoImperativa2) procedimento.getComando().executar(aux);
 		
 		if(procedimento.getExpressaoPos() != null) {

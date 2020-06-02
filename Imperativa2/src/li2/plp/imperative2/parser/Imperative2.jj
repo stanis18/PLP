@@ -135,6 +135,7 @@ TOKEN : /* TOKENS DE IMPERATIVA 2 */
 | < CALL: "call" >
 | < PRE_CONDITION: "@pre" >
 | < POST_CONDITION: "@pos" >
+| < ALT_CONDITION: "@alt" >
 }
 
 TOKEN : /* TOKENS DOS POSS�VEIS TIPOS */
@@ -824,18 +825,19 @@ DefProcedimento PDefProcedimento():
 	ListaDeclaracaoParametro listaPar = null;
 	Comando comando;
 	Expressao expressaoPre = null;
+	ListaExpAlteravel listaExpressaoAlt = null;
 	Expressao expressaoPos = null;
 }
 {
     (
-		<LBRACE> [expressaoPre = PExpPrecondicoes()] comando = PComando() [expressaoPos = PExpPoscondicoes()] <RBRACE>
-	   	| listaPar = PListaDeclaracaoParametro() <RPAREN> <LBRACE> [expressaoPre = PExpPrecondicoes()] comando = PComando() [expressaoPos = PExpPoscondicoes()] <RBRACE>
+		<LBRACE> [expressaoPre = PExpPrecondicoes()] [listaExpressaoAlt = PListaExpAlteravel()] comando = PComando() [expressaoPos = PExpPoscondicoes()] <RBRACE>
+	   	| listaPar = PListaDeclaracaoParametro() <RPAREN> <LBRACE> [expressaoPre = PExpPrecondicoes()] [listaExpressaoAlt = PListaExpAlteravel()] comando = PComando() [expressaoPos = PExpPoscondicoes()] <RBRACE>
     )
 	{
 	    if(listaPar == null) {
 	        listaPar = new ListaDeclaracaoParametro();
 	    }
-	    return new DefProcedimento (listaPar, comando, expressaoPre, expressaoPos);
+	    return new DefProcedimento (listaPar, comando, expressaoPre, listaExpressaoAlt, expressaoPos);
 	}
 	
 }
@@ -864,6 +866,33 @@ Expressao PExpPrecondicoes():
 
 	{
 		return new ExpBooleana(exp);
+	}
+}
+
+Id PExpAlteravel():
+{
+  Id id;
+}
+{
+   	id = PId() 
+
+	{
+		return id;
+	}
+}
+
+ListaExpAlteravel PListaExpAlteravel():
+{
+	Expressao exp;
+	ListaExpAlteravel lista = null;
+}
+{
+	<ALT_CONDITION> exp = PExpAlteravel() { lista = new ListaExpAlteravel(exp); } ( <COMMA> exp = PExpAlteravel() {lista = new ListaExpAlteravel(exp, lista);} )* <SEMICOLON>
+	{
+		if (lista == null) {
+			lista = new ListaExpAlteravel();
+		}	
+		return lista;
 	}
 }
 

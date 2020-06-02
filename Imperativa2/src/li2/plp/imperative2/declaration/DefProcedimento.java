@@ -3,6 +3,7 @@ package li2.plp.imperative2.declaration;
 import li2.plp.expressions1.util.Tipo;
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.imperative1.command.Comando;
+import li2.plp.imperative2.command.ListaExpAlteravel;
 import li2.plp.imperative2.util.TipoProcedimento;
 
 /**
@@ -23,6 +24,8 @@ public class DefProcedimento {
 	
 	private Expressao expressaoPre;
 	
+	private ListaExpAlteravel listaExpressaoAlt;
+	
 	private Expressao expressaoPos;
 
 	/**
@@ -34,10 +37,14 @@ public class DefProcedimento {
 	 *            Declara�ao de Comando.
 	 */
 	public DefProcedimento(ListaDeclaracaoParametro parametrosFormais,
-			Comando comando, Expressao expressaoPre, Expressao expressaoPos) {
+							Comando comando,
+							Expressao expressaoPre,
+							ListaExpAlteravel listaExpressaoAlt,
+							Expressao expressaoPos) {
 		this.parametrosFormais = parametrosFormais;
 		this.comando = comando;
 		this.expressaoPre = expressaoPre;
+		this.listaExpressaoAlt = listaExpressaoAlt;
 		this.expressaoPos = expressaoPos;
 	}
 
@@ -65,6 +72,10 @@ public class DefProcedimento {
 
 	public Expressao getExpressaoPre() {
 		return expressaoPre;
+	}
+	
+	public ListaExpAlteravel getListaExpressaoAlt() {
+		return listaExpressaoAlt;
 	}
 	
 	public Expressao getExpressaoPos() {

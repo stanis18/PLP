@@ -1,7 +1,12 @@
-package li2.plp.expressions2.expression;
+package li2.plp.imperative2.expression;
 
 import li2.plp.expressions1.util.Tipo;
 import li2.plp.expressions1.util.TipoPrimitivo;
+import li2.plp.expressions2.expression.ExpBinaria;
+import li2.plp.expressions2.expression.Expressao;
+import li2.plp.expressions2.expression.Valor;
+import li2.plp.expressions2.expression.ValorBooleano;
+import li2.plp.expressions2.expression.ValorInteiro;
 import li2.plp.expressions2.memory.AmbienteCompilacao;
 import li2.plp.expressions2.memory.AmbienteExecucao;
 import li2.plp.expressions2.memory.VariavelJaDeclaradaException;

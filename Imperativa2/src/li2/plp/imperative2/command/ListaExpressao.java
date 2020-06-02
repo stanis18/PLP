@@ -11,6 +11,7 @@ import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.ListaValor;
 import li2.plp.imperative1.util.Lista;
+import li2.plp.imperative2.declaration.ListaDeclaracaoParametro;
 
 public class ListaExpressao extends Lista<Expressao> {
 
@@ -24,6 +25,23 @@ public class ListaExpressao extends Lista<Expressao> {
 
 	public ListaExpressao(Expressao expressao, ListaExpressao listaExpressao) {
 		super(expressao, listaExpressao);
+	}
+	
+	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
+			throws VariavelNaoDeclaradaException {
+		boolean resposta;
+		if (getHead() != null) {
+			if (getTail() != null) {
+				resposta = getHead().checaTipo(ambiente)
+						&& ((ListaExpressao) getTail())
+								.checaTipo(ambiente);
+			} else {
+				resposta = getHead().checaTipo(ambiente);
+			}
+		} else {
+			resposta = true;
+		}
+		return resposta;
 	}
 
 	public ListaValor avaliar(AmbienteExecucaoImperativa ambiente)

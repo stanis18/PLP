@@ -40,7 +40,7 @@ public class DeclaracaoProcedimento extends Declaracao {
 			IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		boolean resposta;
 
-		ambiente.map(id, defProcedimento.getTipo());
+		ambiente.map(id, getDefProcedimento().getTipo());
 
 		ListaDeclaracaoParametro parametrosFormais = getDefProcedimento()
 				.getParametrosFormais();
@@ -50,6 +50,7 @@ public class DeclaracaoProcedimento extends Declaracao {
 			
 			resposta = getDefProcedimento().getComando().checaTipo(ambiente);
 			if (resposta && getDefProcedimento().getExpressaoPre() != null) resposta = resposta && getDefProcedimento().getExpressaoPre().checaTipo(ambiente);
+			if (resposta && getDefProcedimento().getListaExpressaoAlt() != null) resposta = resposta && getDefProcedimento().getListaExpressaoAlt().checaTipo(ambiente);
 			if (resposta && getDefProcedimento().getExpressaoPos() != null) resposta = resposta && getDefProcedimento().getExpressaoPos().checaTipo(ambiente);
 			
 			ambiente.restaura();

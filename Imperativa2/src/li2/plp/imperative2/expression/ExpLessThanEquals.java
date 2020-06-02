@@ -1,21 +1,26 @@
-package li2.plp.expressions2.expression;
+package li2.plp.imperative2.expression;
 
 import li2.plp.expressions1.util.Tipo;
 import li2.plp.expressions1.util.TipoPrimitivo;
+import li2.plp.expressions2.expression.ExpBinaria;
+import li2.plp.expressions2.expression.Expressao;
+import li2.plp.expressions2.expression.Valor;
+import li2.plp.expressions2.expression.ValorBooleano;
+import li2.plp.expressions2.expression.ValorInteiro;
 import li2.plp.expressions2.memory.AmbienteCompilacao;
 import li2.plp.expressions2.memory.AmbienteExecucao;
 import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
 import li2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 
-public class ExpGreaterThan extends ExpBinaria{
+public class ExpLessThanEquals extends ExpBinaria{
 
-	public ExpGreaterThan(Expressao esq, Expressao dir) {
-		super(esq, dir, ">");
+	public ExpLessThanEquals(Expressao esq, Expressao dir) {
+		super(esq, dir, "<");
 	}
 
 	@Override
 	public Valor avaliar(AmbienteExecucao amb) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		return new ValorBooleano(((ValorInteiro) getEsq().avaliar(amb)).valor() > ((ValorInteiro) getDir().avaliar(amb)).valor());
+		return new ValorBooleano(((ValorInteiro) getEsq().avaliar(amb)).valor() <= ((ValorInteiro) getDir().avaliar(amb)).valor());
 	}
 
 	@Override
@@ -31,7 +36,7 @@ public class ExpGreaterThan extends ExpBinaria{
 
 	@Override
 	public ExpBinaria clone() {
-		return new ExpGreaterThan(esq.clone(), dir.clone());
+		return new ExpLessThanEquals(esq.clone(), dir.clone());
 	}
 
 }
