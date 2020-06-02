@@ -1,12 +1,15 @@
 package li2.plp.imperative2.memory;
 
 import li2.plp.expressions2.expression.Id;
+import li2.plp.expressions2.expression.ValorBooleano;
 import li2.plp.expressions2.memory.Contexto;
 import li2.plp.expressions2.memory.VariavelJaDeclaradaException;
 import li2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import li2.plp.imperative1.memory.ContextoExecucaoImperativa;
 import li2.plp.imperative1.memory.ListaValor;
+import li2.plp.imperative2.command.ListaExpressao;
 import li2.plp.imperative2.declaration.DefProcedimento;
+import li2.plp.imperative2.expression.ExpBooleana;
 
 public class ContextoExecucaoImperativa2 extends ContextoExecucaoImperativa
 		implements AmbienteExecucaoImperativa2 {
@@ -16,6 +19,7 @@ public class ContextoExecucaoImperativa2 extends ContextoExecucaoImperativa
 	 * armazena apenas procedimentos.
 	 */
 	private Contexto<DefProcedimento> contextoProcedimentos;
+	private ListaExpressao listaExpInvariante;
 
 	/**
 	 * Construtor da classe.
@@ -68,5 +72,38 @@ public class ContextoExecucaoImperativa2 extends ContextoExecucaoImperativa
 			throw new ProcedimentoNaoDeclaradoException(idArg);
 		}
 
+	}
+
+	@Override
+	public void adicionaListaExpInvaritante(ExpBooleana exp) {
+		if (this.listaExpInvariante == null) {
+			this.listaExpInvariante = new ListaExpressao(exp);
+		} else {
+			this.listaExpInvariante = new ListaExpressao(exp, this.listaExpInvariante);
+		}
+	}
+
+	@Override
+	public ListaExpressao getListaExpInvaritante() {
+		return this.listaExpInvariante;
+	}
+
+	@Override
+	public boolean checaListaExpInvaritante() {
+		if (this.listaExpInvariante == null) return true;
+		return checaListaValorInvaritante(this.listaExpInvariante.avaliar(this));
+	}
+	
+	private boolean checaListaValorInvaritante(ListaValor listaValor) {
+		boolean resposta = true;
+		if (listaValor.getHead() != null) {
+			if (listaValor.getTail() != null) {
+				resposta = ((ValorBooleano) listaValor.getHead().avaliar(this)).valor()
+						&& checaListaValorInvaritante((ListaValor) listaValor.getTail());
+			} else {
+				resposta = ((ValorBooleano) listaValor.getHead().avaliar(this)).valor();
+			}
+		}
+		return resposta;
 	}
 }

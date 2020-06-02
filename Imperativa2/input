@@ -1,12 +1,14 @@
 { 
    var q = 9,
-   var a  =  9 @inv (a >= q) and (a <= 15),
+   var a  =  9,
    var b = "",
    var c = "aaa",
    var d = "bbb",
    
    var x =  "btes",
    var x1 = length x,
+   
+   inv (a >= q) and (a <= 15),
    
    proc incA (int z, int y)  {
      @pre (z >= 0) and (y > 0);

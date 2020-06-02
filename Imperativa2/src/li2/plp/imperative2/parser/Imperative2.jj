@@ -136,7 +136,7 @@ TOKEN : /* TOKENS DE IMPERATIVA 2 */
 | < PRE_CONDITION: "@pre" >
 | < POST_CONDITION: "@pos" >
 | < ALT_CONDITION: "@alt" >
-| < INVARIANT: "@inv" >
+| < INV: "inv" >
 }
 
 TOKEN : /* TOKENS DOS POSS�VEIS TIPOS */
@@ -778,9 +778,12 @@ Declaracao PDeclaracao():
 	(
 		  LOOKAHEAD(PDeclaracaoVariavel() <COMMA>)
            retorno = PDeclaracaoComposta()
+          |LOOKAHEAD(PDeclaracaoInvariante() <COMMA>)
+           retorno = PDeclaracaoComposta()
           |LOOKAHEAD(PDeclaracaoProcedimento() <COMMA>)
-           retorno = PDeclaracaoComposta() 
+           retorno = PDeclaracaoComposta()
 		  | retorno = PDeclaracaoVariavel()
+		  | retorno = PDeclaracaoInvariante()
 		  | retorno = PDeclaracaoProcedimento()
           | <LPAREN> retorno = PDeclaracao() <RPAREN>   		 
 		  
@@ -797,7 +800,10 @@ DeclaracaoComposta PDeclaracaoComposta():
 	(LOOKAHEAD(PDeclaracaoVariavel() <COMMA>)
 	  d1 = PDeclaracaoVariavel() <COMMA> d2 = PDeclaracao()
 	 
-	 |  LOOKAHEAD(PDeclaracaoProcedimento() <COMMA>)
+	 | LOOKAHEAD(PDeclaracaoInvariante() <COMMA>)
+	  d1 = PDeclaracaoInvariante() <COMMA> d2 = PDeclaracao()
+	 
+	 | LOOKAHEAD(PDeclaracaoProcedimento() <COMMA>)
 	 d1 = PDeclaracaoProcedimento() <COMMA> d2 = PDeclaracao()
 	)
 	
@@ -831,8 +837,8 @@ DefProcedimento PDefProcedimento():
 }
 {
     (
-		<LBRACE> [expressaoPre = PExpPrecondicoes()] [listaExpressaoAlt = PListaExpAlteravel()] comando = PComando() [expressaoPos = PExpPoscondicoes()] <RBRACE>
-	   	| listaPar = PListaDeclaracaoParametro() <RPAREN> <LBRACE> [expressaoPre = PExpPrecondicoes()] [listaExpressaoAlt = PListaExpAlteravel()] comando = PComando() [expressaoPos = PExpPoscondicoes()] <RBRACE>
+		<LBRACE> [expressaoPre = PDeclaracaoPrecondicoes()] [listaExpressaoAlt = PDeclaracaoAlteravel()] comando = PComando() [expressaoPos = PDeclaracaoPoscondicoes()] <RBRACE>
+	   	| listaPar = PListaDeclaracaoParametro() <RPAREN> <LBRACE> [expressaoPre = PDeclaracaoPrecondicoes()] [listaExpressaoAlt = PDeclaracaoAlteravel()] comando = PComando() [expressaoPos = PDeclaracaoPoscondicoes()] <RBRACE>
     )
 	{
 	    if(listaPar == null) {
@@ -844,21 +850,7 @@ DefProcedimento PDefProcedimento():
 }
 
 
-Expressao PExpInvariant():
-{
-  Expressao exp;
-}
-{
-
-	<INVARIANT> exp = PExpressao()
-
-	{
-		return new ExpBooleana(exp);
-	}
-}
-
-
-Expressao PExpPoscondicoes():
+Expressao PDeclaracaoPoscondicoes():
 {
   Expressao exp;
 }
@@ -872,7 +864,7 @@ Expressao PExpPoscondicoes():
 }
 
 
-Expressao PExpPrecondicoes():
+Expressao PDeclaracaoPrecondicoes():
 {
   Expressao exp;
 }
@@ -896,7 +888,7 @@ Id PExpAlteravel():
 	}
 }
 
-ListaExpAlteravel PListaExpAlteravel():
+ListaExpAlteravel PDeclaracaoAlteravel():
 {
 	Expressao exp;
 	ListaExpAlteravel lista = null;
@@ -970,12 +962,25 @@ DeclaracaoVariavel PDeclaracaoVariavel() :
 	Id id;
 	Expressao exp;
 	DeclaracaoVariavel retorno;
-	Expressao expBool = null;
 }
 {
-	 <VAR> id = PId() <ASSIGN> exp = PExpressao() [expBool = PExpInvariant()]
-	   	{retorno = new DeclaracaoVariavel(id, exp, expBool);}
+	 <VAR> id = PId() <ASSIGN> exp = PExpressao()
+	   	{retorno = new DeclaracaoVariavel(id, exp);}
 	{
 		return retorno;
 	}
 }
+
+DeclaracaoInvariante PDeclaracaoInvariante() :
+{
+	Expressao exp;
+	DeclaracaoInvariante retorno;
+}
+{
+	 <INV> exp = PExpressao()
+	   	{retorno = new DeclaracaoInvariante(new ExpBooleana(exp));}
+	{
+		return retorno;
+	}
+}
+

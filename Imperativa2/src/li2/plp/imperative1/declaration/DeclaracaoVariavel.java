@@ -2,25 +2,19 @@ package li2.plp.imperative1.declaration;
 
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.Id;
-import li2.plp.expressions2.expression.ValorBooleano;
 import li2.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li2.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
-import li2.plp.imperative2.expression.ExpBooleana;
-import li2.plp.imperative2.memory.InvariantException;
-
 public class DeclaracaoVariavel extends Declaracao {
 
 	private Id id;
 	private Expressao expressao;
-	private Expressao expBooleana;
 
-	public DeclaracaoVariavel(Id id, Expressao expressao, Expressao expBooleana) {
+	public DeclaracaoVariavel(Id id, Expressao expressao) {
 		super();
 		this.id = id;
 		this.expressao = expressao;
-		this.expBooleana = expBooleana;
 	}
 
 	/**
@@ -38,14 +32,7 @@ public class DeclaracaoVariavel extends Declaracao {
 			AmbienteExecucaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException,
 			IdentificadorNaoDeclaradoException {
-		ambiente.map(getId(), getExpressao().avaliar(ambiente));
-		
-		if(getExpressaoBooleana() != null) {
-			ambiente.mapExpInvariant(getId(), getExpressaoBooleana());
-			ValorBooleano avaliacaoInv = (ValorBooleano) ambiente.getExpInvariant(getId()).avaliar(ambiente);
-			if(!avaliacaoInv.valor()) throw new InvariantException();
-		}
-			
+		ambiente.map(getId(), getExpressao().avaliar(ambiente));	
 		return ambiente;
 	}
 
@@ -55,10 +42,6 @@ public class DeclaracaoVariavel extends Declaracao {
 
 	public Id getId() {
 		return this.id;
-	}
-	
-	public Expressao getExpressaoBooleana() {
-		return this.expBooleana;
 	}
 
 	/**
