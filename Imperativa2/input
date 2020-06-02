@@ -9,9 +9,10 @@
    var x1 = length x,
    
    proc incA (int z, int y)  {
-     @pre (z >= 0) and (y > 0); 
+     @pre (z >= 0) and (y > 0);
+     @alt a;
      a := z / y
-     @pos a >= 0;
+     @pos (a >= 0) and (not (a == oldA));
    },
    
    proc incB (string ss, string tt)  {
