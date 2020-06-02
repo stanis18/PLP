@@ -14,7 +14,7 @@ public interface Ambiente<T> {
 
 	public T get(Id idArg) throws VariavelNaoDeclaradaException;
 	
-	public void mapBoolean(Id idArg, Expressao expressao) throws VariavelJaDeclaradaException;
+	public void mapExpInvariant(Id idArg, Expressao expressao) throws VariavelJaDeclaradaException;
 	
 	public Expressao getExpInvariant(Id idArg);
 }

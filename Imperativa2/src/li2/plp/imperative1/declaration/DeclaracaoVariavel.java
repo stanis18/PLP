@@ -41,17 +41,11 @@ public class DeclaracaoVariavel extends Declaracao {
 		ambiente.map(getId(), getExpressao().avaliar(ambiente));
 		
 		if(getExpressaoBooleana() != null) {
-			ambiente.mapBoolean(getId(), getExpressaoBooleana());
+			ambiente.mapExpInvariant(getId(), getExpressaoBooleana());
 			ValorBooleano avaliacaoInv = (ValorBooleano) ambiente.getExpInvariant(getId()).avaliar(ambiente);
 			if(!avaliacaoInv.valor()) throw new InvariantException();
 		}
-		
-		
-//		if(getExpressaoBooleana() != null) {
-//			ValorBooleano avaliacaoInv = (ValorBooleano) getExpressaoBooleana().avaliar(ambiente);
-//			if(!avaliacaoInv.valor()) throw new InvariantException();
-//		}
-		
+			
 		return ambiente;
 	}
 

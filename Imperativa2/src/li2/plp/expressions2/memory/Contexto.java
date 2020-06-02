@@ -99,7 +99,7 @@ public class Contexto<T> {
 	}
 	
 	
-	public void mapBoolean(Id idArg, Expressao expressao) throws VariavelJaDeclaradaException {
+	public void mapExpInvariant(Id idArg, Expressao expressao) throws VariavelJaDeclaradaException {
 			mapExpBooleana.put(idArg, expressao);
 		//		try {
 //			HashMap<Id, T> aux = pilha.peek();

@@ -1,5 +1,6 @@
 { 
-   var a  =  9 @inv a >= 9,
+   var q = 9,
+   var a  =  9 @inv (a >= q) and (a <= 15),
    var b = "",
    var c = "aaa",
    var d = "bbb",
@@ -21,7 +22,7 @@
      @pos (((length ss) + (length tt)) == 6) and ((length b) == 6);
    };
 
-   call incA(18, 2);
+   call incA(28, 2);
 
    write(a);
    
