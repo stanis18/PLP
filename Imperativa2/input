@@ -14,7 +14,7 @@
      @pre (z >= 0) and (y > 0);
      @alt a;
      a := z / y
-     @pos (a >= 0) and (not (a == oldA));
+     @pos (a >= 0) and (not (a == old_a));
    },
    
    proc incB (string ss, string tt)  {

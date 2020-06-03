@@ -39,7 +39,7 @@ public class ListaExpAlteravel extends ListaExpressao {
 	}
 	
 	private String transformId(String id) {
-		return "old" + id.substring(0, 1).toUpperCase() + id.substring(1);
+		return "old_" + id;
 	}
 
 }

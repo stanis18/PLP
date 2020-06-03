@@ -8,6 +8,8 @@ import li2.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li2.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li2.plp.imperative1.memory.EntradaVaziaException;
 import li2.plp.imperative1.memory.ErroTipoEntradaException;
+import li2.plp.imperative2.memory.AmbienteExecucaoImperativa2;
+import li2.plp.imperative2.memory.InvarianteException;
 import li2.plp.imperative2.memory.PreRequisitosException;
 
 public class Read implements IO {
@@ -42,9 +44,7 @@ public class Read implements IO {
 					" com tipo da vari�vel (" + id.getIdName() + ")");
 		}
 		
-		
-		
-		
+		if(!((AmbienteExecucaoImperativa2) ambiente).checaListaExpInvaritante()) throw new InvarianteException();
 		return ambiente;
 	}
 
