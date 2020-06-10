@@ -1,34 +1,24 @@
 { 
    var q = 9,
    var a  =  9,
-   var b = "",
-   var c = "aaa",
-   var d = "bbb",
-   
-   var x =  "btes",
-   var x1 = length x,
+   var t = 0,
    
    inv (a >= q) and (a <= 15),
    
-   proc incA (int z, int y)  {
+   proc int incA (int z, int y)  {
      @pre (z >= 0) and (y > 0);
      @alt a;
      a := z / y
      @pos (a >= 0) and (not (a == old_a));
-   },
-   
-   proc incB (string ss, string tt)  {
-     @pre (length ss) > 1;
-     
-     b := ss ++ tt
-     
-     @pos (((length ss) + (length tt)) == 6) and ((length b) == 6);
+     return false;
    };
 
    call incA(28, 2);
 
-   write(a);
-   
-   call incB("aaa", "bbb");
-   write(b)
+   write(a)
 }
+
+
+
+
+

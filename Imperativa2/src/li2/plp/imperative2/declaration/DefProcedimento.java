@@ -27,6 +27,8 @@ public class DefProcedimento {
 	private ListaExpAlteravel listaExpressaoAlt;
 	
 	private Expressao expressaoPos;
+	
+	private Expressao expressaoRetorno;
 
 	/**
 	 * Construtor
@@ -40,12 +42,14 @@ public class DefProcedimento {
 							Comando comando,
 							Expressao expressaoPre,
 							ListaExpAlteravel listaExpressaoAlt,
-							Expressao expressaoPos) {
+							Expressao expressaoPos,
+							Expressao expressaoRetorno) {
 		this.parametrosFormais = parametrosFormais;
 		this.comando = comando;
 		this.expressaoPre = expressaoPre;
 		this.listaExpressaoAlt = listaExpressaoAlt;
 		this.expressaoPos = expressaoPos;
+		this.expressaoRetorno = expressaoRetorno;
 	}
 
 	/**
@@ -81,5 +85,8 @@ public class DefProcedimento {
 	public Expressao getExpressaoPos() {
 		return expressaoPos;
 	}
-		
+
+	public Expressao getExpressaoRetorno() {
+		return expressaoRetorno;
+	}
 }

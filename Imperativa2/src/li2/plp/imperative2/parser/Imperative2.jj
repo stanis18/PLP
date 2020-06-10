@@ -137,6 +137,7 @@ TOKEN : /* TOKENS DE IMPERATIVA 2 */
 | < POST_CONDITION: "@pos" >
 | < ALT_CONDITION: "@alt" >
 | < INV: "inv" >
+| < RETURN: "return" >
 }
 
 TOKEN : /* TOKENS DOS POSS�VEIS TIPOS */
@@ -814,16 +815,18 @@ DeclaracaoProcedimento PDeclaracaoProcedimento():
 {
 	Id nome;
 	DefProcedimento defProcedimento;
+	Tipo tipoRetorno = null;
+	Expressao expressaoRetorno = null;
 }
 {
     (
         LOOKAHEAD(<PROC> PId() <LPAREN> <RPAREN>)
-    	<PROC> nome = PId() <LPAREN> <RPAREN> defProcedimento = PDefProcedimento()
+    	<PROC> [tipoRetorno = PTipo()] nome = PId()  <LPAREN> <RPAREN> defProcedimento = PDefProcedimento()
     	|
-    	<PROC> nome = PId() <LPAREN> defProcedimento = PDefProcedimento()
+    	<PROC> [tipoRetorno = PTipo()] nome = PId() <LPAREN> defProcedimento = PDefProcedimento()
     )
 	{
-	    return new DeclaracaoProcedimento (nome, defProcedimento);
+	    return new DeclaracaoProcedimento (nome, defProcedimento, tipoRetorno);
 	}
 }
 
@@ -834,17 +837,18 @@ DefProcedimento PDefProcedimento():
 	Expressao expressaoPre = null;
 	ListaExpAlteravel listaExpressaoAlt = null;
 	Expressao expressaoPos = null;
+	Expressao expressaoRetorno = null;
 }
 {
     (
 		<LBRACE> [expressaoPre = PDeclaracaoPrecondicoes()] [listaExpressaoAlt = PDeclaracaoAlteravel()] comando = PComando() [expressaoPos = PDeclaracaoPoscondicoes()] <RBRACE>
-	   	| listaPar = PListaDeclaracaoParametro() <RPAREN> <LBRACE> [expressaoPre = PDeclaracaoPrecondicoes()] [listaExpressaoAlt = PDeclaracaoAlteravel()] comando = PComando() [expressaoPos = PDeclaracaoPoscondicoes()] <RBRACE>
+	   	| listaPar = PListaDeclaracaoParametro() <RPAREN> <LBRACE> [expressaoPre = PDeclaracaoPrecondicoes()] [listaExpressaoAlt = PDeclaracaoAlteravel()] comando = PComando() [expressaoPos = PDeclaracaoPoscondicoes()] [ < RETURN> expressaoRetorno = PExpressao() <SEMICOLON> ]<RBRACE>
     )
 	{
 	    if(listaPar == null) {
 	        listaPar = new ListaDeclaracaoParametro();
 	    }
-	    return new DefProcedimento (listaPar, comando, expressaoPre, listaExpressaoAlt, expressaoPos);
+	    return new DefProcedimento (listaPar, comando, expressaoPre, listaExpressaoAlt, expressaoPos, expressaoRetorno);
 	}
 	
 }
