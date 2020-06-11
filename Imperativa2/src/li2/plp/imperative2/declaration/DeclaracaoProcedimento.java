@@ -46,6 +46,8 @@ public class DeclaracaoProcedimento extends Declaracao {
 		boolean resposta;
 
 		ambiente.map(id, getDefProcedimento().getTipo());
+		ambiente.mapTipoRetorno(id, getDefProcedimento().getTipoExpressaoRetorno(ambiente));
+		
 
 		ListaDeclaracaoParametro parametrosFormais = getDefProcedimento()
 				.getParametrosFormais();
@@ -72,4 +74,9 @@ public class DeclaracaoProcedimento extends Declaracao {
 	private DefProcedimento getDefProcedimento() {
 		return this.defProcedimento;
 	}
+
+	public Tipo getTipoRetorno() {
+		return tipoRetorno;
+	}
+	
 }

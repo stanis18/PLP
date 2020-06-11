@@ -1,7 +1,9 @@
 package li2.plp.imperative2.declaration;
 
 import li2.plp.expressions1.util.Tipo;
+import li2.plp.expressions1.util.TipoPrimitivo;
 import li2.plp.expressions2.expression.Expressao;
+import li2.plp.expressions2.memory.AmbienteCompilacao;
 import li2.plp.imperative1.command.Comando;
 import li2.plp.imperative2.command.ListaExpAlteravel;
 import li2.plp.imperative2.util.TipoProcedimento;
@@ -88,5 +90,10 @@ public class DefProcedimento {
 
 	public Expressao getExpressaoRetorno() {
 		return expressaoRetorno;
+	}
+	
+	//CORRIGIR ISSO AQUEEEEEEEE.. 
+	public Tipo getTipoExpressaoRetorno (AmbienteCompilacao amb) {
+		return expressaoRetorno.getTipo(amb);
 	}
 }

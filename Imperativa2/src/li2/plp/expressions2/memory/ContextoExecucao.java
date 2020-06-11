@@ -29,4 +29,10 @@ public class ContextoExecucao extends Contexto<Valor>
 		
 		return retorno;
 	}
+
+	@Override
+	public void mapTipoRetorno(Id idArg, Valor tipoId) throws VariavelJaDeclaradaException {
+		// TODO Auto-generated method stub
+		
+	}
 }

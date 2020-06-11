@@ -10,12 +10,12 @@
      @alt a;
      a := z / y
      @pos (a >= 0) and (not (a == old_a));
-     return false;
+     return a;
    };
 
-   call incA(28, 2);
+   t := call incA(28, 2);
 
-   write(a)
+   write(t)
 }
 
 

@@ -3,6 +3,7 @@ package li2.plp.expressions2.memory;
 import java.util.HashMap;
 import java.util.Stack;
 
+import li2.plp.expressions1.util.Tipo;
 import li2.plp.expressions2.expression.Expressao;
 import li2.plp.expressions2.expression.Id;
 
@@ -19,7 +20,10 @@ public class Contexto<T> {
 	protected Stack<HashMap<Id, T>> pilha;
 	
 	protected HashMap<Id, Expressao> mapExpBooleana = new HashMap<Id, Expressao>();
-
+	
+	
+	protected HashMap<Id, Tipo> mapTipoRetorno = new HashMap<Id, Tipo>();
+	
 	/**
 	 * Construtor da classe.
 	 */
@@ -50,6 +54,8 @@ public class Contexto<T> {
 			throw new VariavelJaDeclaradaException(idArg);
 		}
 	}
+	
+	
 
 	/**
 	 * Retorna o valor mapeado ao id dado.
@@ -101,17 +107,18 @@ public class Contexto<T> {
 	
 	public void mapExpInvariant(Id idArg, Expressao expressao) throws VariavelJaDeclaradaException {
 			mapExpBooleana.put(idArg, expressao);
-		//		try {
-//			HashMap<Id, T> aux = pilha.peek();
-//			if (aux.put(idArg, valorId) != null)
-//				throw new IdentificadorJaDeclaradoException();
-//		} catch (IdentificadorJaDeclaradoException e) {
-//			throw new VariavelJaDeclaradaException(idArg);
-//		}
 	}
 	
 	public Expressao getExpInvariant(Id idArg) {
 		return mapExpBooleana.get(idArg);
+	}
+	
+	public void mapTipoRetorno(Id idArg, Tipo tipo) throws VariavelJaDeclaradaException {
+		mapTipoRetorno.put(idArg, tipo);
+	}
+	
+	public Tipo getTipoRetorno(Id idArg) {
+		return mapTipoRetorno.get(idArg);
 	}
 	
 	/*

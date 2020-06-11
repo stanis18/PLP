@@ -8,4 +8,5 @@ public interface AmbienteCompilacaoImperativa extends AmbienteCompilacao {
 	public Tipo getTipoEntrada() throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException,
 		EntradaVaziaException;
 
+
 }

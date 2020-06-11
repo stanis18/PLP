@@ -715,6 +715,9 @@ Expressao PExpressao() :
 	  		retorno = PExpUnaria()
 	  | LOOKAHEAD (PExpPrimaria() (<OR> | <AND> | <MINUS> | <PLUS> | <EQ> | <CONCAT> | <LT> | <LE> | <GT> | <GE> | <SLASH> | <STAR>)) 
 	  		retorno = PExpBinaria()
+
+	  | LOOKAHEAD (<CALL>) 
+	  	retorno = PChamadaProcedimento()
 	  |
 	    retorno = PExpPrimaria()
 	)
@@ -738,7 +741,7 @@ Comando PComandoSimples() :
       | retorno = PIfThenElse()
       | retorno = PIO()
       | <LPAREN> retorno = PComando() <RPAREN>
-      | retorno = PChamadaProcedimento()
+      
    	)
     {
         return retorno;
