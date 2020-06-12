@@ -98,6 +98,8 @@ public class ChamadaProcedimento implements Expressao {
 		
 		Valor valor = (Valor)procedimento.getExpressaoRetorno().avaliar(aux);
 		
+		ambiente.restaura();
+		
 		return valor;
 	}
 
