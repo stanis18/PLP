@@ -92,7 +92,6 @@ public class DefProcedimento {
 		return expressaoRetorno;
 	}
 	
-	//CORRIGIR ISSO AQUEEEEEEEE.. 
 	public Tipo getTipoExpressaoRetorno (AmbienteCompilacao amb) {
 		return expressaoRetorno.getTipo(amb);
 	}
